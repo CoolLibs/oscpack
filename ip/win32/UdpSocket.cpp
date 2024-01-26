@@ -109,7 +109,7 @@ public:
 		, socket_( INVALID_SOCKET )
 	{
 		if( (socket_ = socket( AF_INET, SOCK_DGRAM, 0 )) == INVALID_SOCKET ){
-            throw std::runtime_error("unable to create udp socket\n");
+            throw std::runtime_error("unable to create udp socket");
         }
 
 		std::memset( &sendToAddr_, 0, sizeof(sendToAddr_) );
@@ -147,7 +147,7 @@ public:
 		SockaddrFromIpEndpointName( connectSockAddr, remoteEndpoint );
        
         if (connect(socket_, (struct sockaddr *)&connectSockAddr, sizeof(connectSockAddr)) < 0) {
-            throw std::runtime_error("unable to connect udp socket\n");
+            throw std::runtime_error("unable to connect udp socket");
         }
 
         // get the address
@@ -156,14 +156,14 @@ public:
         std::memset( (char *)&sockAddr, 0, sizeof(sockAddr ) );
         socklen_t length = sizeof(sockAddr);
         if (getsockname(socket_, (struct sockaddr *)&sockAddr, &length) < 0) {
-            throw std::runtime_error("unable to getsockname\n");
+            throw std::runtime_error("unable to getsockname");
         }
         
 		if( isConnected_ ){
 			// reconnect to the connected address
 			
 			if (connect(socket_, (struct sockaddr *)&connectedAddr_, sizeof(connectedAddr_)) < 0) {
-				throw std::runtime_error("unable to connect udp socket\n");
+				throw std::runtime_error("unable to connect udp socket");
 			}
 
 		}else{
@@ -174,7 +174,7 @@ public:
 
 			if( connect(socket_, (struct sockaddr *)&unconnectSockAddr, sizeof(unconnectSockAddr)) < 0 
 					&& WSAGetLastError() != WSAEADDRNOTAVAIL ){
-				throw std::runtime_error("unable to un-connect udp socket\n");
+				throw std::runtime_error("unable to un-connect udp socket");
 			}
 		}
 
@@ -186,7 +186,7 @@ public:
 		SockaddrFromIpEndpointName( connectedAddr_, remoteEndpoint );
        
         if (connect(socket_, (struct sockaddr *)&connectedAddr_, sizeof(connectedAddr_)) < 0) {
-            throw std::runtime_error("unable to connect udp socket\n");
+            throw std::runtime_error("unable to connect udp socket");
         }
 
 		isConnected_ = true;
@@ -213,7 +213,7 @@ public:
 		SockaddrFromIpEndpointName( bindSockAddr, localEndpoint );
 
         if (bind(socket_, (struct sockaddr *)&bindSockAddr, sizeof(bindSockAddr)) < 0) {
-            throw std::runtime_error("unable to bind udp socket\n");
+            throw std::runtime_error("unable to bind udp socket");
         }
 
 		isBound_ = true;

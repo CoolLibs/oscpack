@@ -32,7 +32,7 @@ add_library(oscpack
     osc/OscOutboundPacketStream.cpp
 )
 
-target_include_directories(oscpack PUBLIC .)
+target_include_directories(oscpack SYSTEM PUBLIC .)
 
 if(WIN32)
     target_link_libraries(oscpack PRIVATE Ws2_32 winmm)
